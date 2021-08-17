@@ -21,6 +21,16 @@ soup = BeautifulSoup(source, 'lxml')
 rates = soup.find_all('span', id='pkr_rate')
 print(f"UBL: {rates[0].text}")
 
+################## Google ##########################
+source = requests.get(
+    'https://gbp.fxexchangerate.com/pkr/1-currency-rates.html').text
+soup = BeautifulSoup(source, 'lxml')
+rates = soup.find_all("div", {"class": "fxtoday"})
+# print(rates)
+result = float(rates[0].text.split()[1][4:])
+# print(result)
+print(f"GGL: {result:.2f}")
+
 ################## XE ##########################
 source = requests.get(
     'https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=PKR').text
