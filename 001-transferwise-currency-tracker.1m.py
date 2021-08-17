@@ -14,7 +14,7 @@ from urllib.request import urlopen
 import json
 
 
-################## UBL ##########################
+################## UBL #############################
 source = requests.get('https://www.ubluknetremit.com/Home.aspx').text
 soup = BeautifulSoup(source, 'lxml')
 # print(soup.prettify())
