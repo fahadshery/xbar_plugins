@@ -27,7 +27,8 @@ source = requests.get(
 soup = BeautifulSoup(source, 'lxml')
 rates = soup.find_all("div", {"class": "fxtoday"})
 # print(rates)
-result = float(rates[0].text.split()[1][4:])
+result = float(rates[0].text.split()[3])
+#result = float(rates[0].text.split()[1][4:])
 # print(result)
 print(f"GGL: {result:.2f}")
 
