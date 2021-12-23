@@ -2,7 +2,7 @@
 xbar plugins for Macbook
 
 ## Plugin Location
-/Users/myusername/Library/Application Support/xbar
+/Users/myusername/Library/Application Support/xbar/plugins
 
 ## Setup
 This repo is just for creating and testing code. Once happy, then move the scripts to the above location.
