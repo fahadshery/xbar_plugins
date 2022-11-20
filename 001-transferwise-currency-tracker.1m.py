@@ -13,6 +13,22 @@ from urllib.request import Request
 from urllib.request import urlopen
 import json
 
+################## Bank of England Base Rate % #############################
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+response = requests.get(
+    'https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp', headers=headers).text
+
+# soup = BeautifulSoup(response, 'html.parser')
+# rates = soup.find("span", id="srate")
+soup = BeautifulSoup(response, 'lxml')
+# rates = str(soup.find('p', class_='stat-figure'))
+value = soup.select_one('p[class="stat-figure"]').get_text()
+print(f"BoE%: {value}")
+# print(value)
+# result = float(rates.split("<")[0])
+# print(rates)
 
 ################## UBL #############################
 source = requests.get('https://www.ubluknetremit.com/Home.aspx').text
@@ -22,8 +38,6 @@ rates = soup.find_all('span', id='pkr_rate')
 print(f"UBL: {rates[0].text}")
 
 ################## Google ##########################
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 response = requests.get(
     'https://gbp.fxexchangerate.com/pkr/1-currency-rates.html', headers=headers).text
