@@ -22,14 +22,30 @@ rates = soup.find_all('span', id='pkr_rate')
 print(f"UBL: {rates[0].text}")
 
 ################## Google ##########################
-source = requests.get(
-    'https://gbp.fxexchangerate.com/pkr/1-currency-rates.html').text
-soup = BeautifulSoup(source, 'lxml')
-rates = soup.find_all("div", {"class": "fxtoday"})
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+response = requests.get(
+    'https://gbp.fxexchangerate.com/pkr/1-currency-rates.html', headers=headers).text
+
+# soup = BeautifulSoup(response, 'html.parser')
+# rates = soup.find("span", id="srate")
+soup = BeautifulSoup(response, 'lxml')
+rates = str(soup.find('span', id='srate')).split(">")[1]
+result = float(rates.split("<")[0])
 # print(rates)
-result = float(rates[0].text.split()[3])
-#result = float(rates[0].text.split()[1][4:])
-# print(result)
+
+
+# soup = BeautifulSoup(response, 'lxml')
+# print(soup)
+# rates = soup.find_all("div", {"class": "fxtoday"})
+# print(rates.next_sibling())
+# print(rates[0])
+# print(type(rates))
+# rates_str = str(rates).split()[1]
+# result = float(rates.text.split())
+# result = float(rates[0].text.split()[1][4:])
+# print(rates_str)
 print(f"GGL: {result:.2f}")
 
 ################## XE ##########################
@@ -64,3 +80,16 @@ result = json.loads(urlopen(req).read())['transferwiseRate']
 print(f"TW: {result:.2f}")
 print("---")
 print(f"From: {currency_from}")
+
+################## WESTERNUNINION ##########################
+
+# west_url = 'https://www.westernunion.com/gb/en/web/send-money/start?ReceiveCountry=PK&ISOCurrency=PKR&SendAmount=1&FundsOut=BA&FundsIn=WUPay'
+# response = requests.get(west_url, headers=headers)
+# print(response.text())
+# soup = BeautifulSoup(response, 'html.parser')
+# rates = soup.find("span", id="smoExchangeRate")
+
+# # soup = BeautifulSoup(response, 'lxml')
+# # print(soup)
+# # rates = soup.find('span', id='smoExchangeRate')
+# print(rates)
