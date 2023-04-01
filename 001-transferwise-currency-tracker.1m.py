@@ -73,7 +73,7 @@ print(f"XE: {rates[0].text[:-19]}")
 ################## Remitly ##########################
 source = requests.get('https://www.remitly.com/gb/en/pakistan').text
 soup = BeautifulSoup(source, 'lxml')
-rates = soup.find_all('h2', class_='f1fy1qte')
+rates = soup.find_all('h2', class_='f1xrk329')
 # print(rates)
 print(f"RM: {rates[2].text[:-3]}")
 
