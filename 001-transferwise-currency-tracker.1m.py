@@ -31,11 +31,15 @@ print(f"BoE%: {value}")
 # print(rates)
 
 ################## UBL #############################
-source = requests.get('https://www.ubluknetremit.com/Home.aspx').text
-soup = BeautifulSoup(source, 'lxml')
+# source = requests.get('https://www.ubluknetremit.com/', headers=headers).text
+# soup = BeautifulSoup(source, 'lxml')
+# f = open( 'ubl_value.txt', 'w' )
+# f.write( source )
+# f.close()
 # print(soup.prettify())
-rates = soup.find_all('span', id='pkr_rate')
-print(f"UBL: {rates[0].text}")
+# rates = soup.find_all('span', id='pkr_rate')
+# print(rates)
+# print(f"UBL: {rates[0].text}")
 
 ################## Google ##########################
 
@@ -63,12 +67,26 @@ result = float(rates.split("<")[0])
 print(f"GGL: {result:.2f}")
 
 ################## XE ##########################
+
+# source = requests.get(
+    # 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=PKR', headers=headers).text
 source = requests.get(
-    'https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=PKR').text
+    'https://www.xe.com/currencyconverter/convert/?Amount=1&From=PKR&To=GBP', headers=headers).text
+
 soup = BeautifulSoup(source, 'lxml')
-rates = soup.find_all('p', class_='result__BigRate-sc-1bsijpp-1 iGrAod')
+# f = open( 'xe.txt', 'w' )
+# f.write( str(source) )
+# f.close()
+# print(soup.prettify)
+rates = soup.find_all(class_='unit-rates___StyledDiv-sc-1dk593y-0 iGxfWX')
 # print(rates)
-print(f"XE: {rates[0].text[:-19]}")
+# print(str(rates[0]).split(">"))
+split_array_value = str(rates[0]).split(">")[2]
+# print(split_array_value)
+extracted_rate = split_array_value.split("<")[0].split("=")[1].split(" ")[1]
+# print(extracted_rate)
+# print(split_array_value[1].split("<")[0])
+print(f"XE: {extracted_rate}")
 
 ################## Remitly ##########################
 source = requests.get('https://www.remitly.com/gb/en/pakistan').text
@@ -79,22 +97,23 @@ print(f"RM: {rates[2].text[:-3]}")
 
 ################## TRANSFERWISE ##########################
 
-TRANSFERWISE_KEY = "dad99d7d8e52c2c8aaf9fda788d8acdc"
+# TRANSFERWISE_KEY = "dad99d7d8e52c2c8aaf9fda788d8acdc"
 
-# Replace with desired currencies
-currency_from = 'GBP'
-currency_to = 'PKR'
+# # Replace with desired currencies
+# currency_from = 'GBP'
+# currency_to = 'PKR'
 
-url = f"https://transferwise.com/api/v1/payment/calculate?amount=1&amountCurrency=source&hasDiscount=false&isFixedRate=false&isGuaranteedFixedTarget=false&sourceCurrency={currency_from}&targetCurrency={currency_to}"
+# url = f"https://transferwise.com/api/v1/payment/calculate?amount=1&amountCurrency=source&hasDiscount=false&isFixedRate=false&isGuaranteedFixedTarget=false&sourceCurrency={currency_from}&targetCurrency={currency_to}"
 
-req = Request(url)
-req.add_header('X-Authorization-key', TRANSFERWISE_KEY)
-
-result = json.loads(urlopen(req).read())['transferwiseRate']
-
-print(f"TW: {result:.2f}")
-print("---")
-print(f"From: {currency_from}")
+# req = Request(url)
+# print(req)
+# req.add_header('X-Authorization-key', TRANSFERWISE_KEY)
+# print(json.loads(urlopen(req).read()))
+# result = json.loads(urlopen(req).read())
+# print(result)
+# print(f"TW: {result:.2f}")
+# print("---")
+# print(f"From: {currency_from}")
 
 ################## WESTERNUNINION ##########################
 
