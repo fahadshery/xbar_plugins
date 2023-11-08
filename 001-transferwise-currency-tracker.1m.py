@@ -68,8 +68,6 @@ print(f"GGL: {result:.2f}")
 
 ################## XE ##########################
 
-# source = requests.get(
-    # 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=PKR', headers=headers).text
 source = requests.get(
     'https://www.xe.com/currencyconverter/convert/?Amount=1&From=PKR&To=GBP', headers=headers).text
 
