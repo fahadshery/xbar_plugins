@@ -1,4 +1,5 @@
-#!/opt/homebrew/bin/python3
+#!/usr/bin/python3
+# DO NOT USE IT AFTER MACBOOKS UPDATE /opt/homebrew/bin/python3
 # -*- coding: utf-8 -*-
 # <xbar.title>GBP Currency Tracker</xbar.title>
 # <xbar.version>1.0</xbar.version>
